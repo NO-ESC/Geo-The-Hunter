@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>E:/College/Game Design/src/Geo The Hunter/Geo The Hunter/Content/map.png</SourceFile>
-  <SourceTime>2016-04-27T11:29:14+01:00</SourceTime>
-  <DestFile>E:/College/Game Design/src/Geo The Hunter/Geo The Hunter/Content/bin/WindowsGL/map.xnb</DestFile>
-  <DestTime>2016-04-27T13:37:18+01:00</DestTime>
+  <SourceFile>J:/Geo The Hunter/Geo The Hunter/Content/map.png</SourceFile>
+  <SourceTime>2016-04-30T22:21:57.3991226+01:00</SourceTime>
+  <DestFile>J:/Geo The Hunter/Geo The Hunter/Content/bin/WindowsGL/map.xnb</DestFile>
+  <DestTime>2016-05-01T12:42:03.2080075+01:00</DestTime>
   <Importer>TextureImporter</Importer>
-  <ImporterTime>2015-03-16T03:01:46+00:00</ImporterTime>
+  <ImporterTime>2016-03-30T07:36:08+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
-  <ProcessorTime>2015-03-16T03:01:46+00:00</ProcessorTime>
+  <ProcessorTime>2016-03-30T07:36:08+01:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>255,0,255,255</Value>
@@ -26,6 +26,10 @@
   </Parameters>
   <Parameters>
     <Key>ResizeToPowerOfTwo</Key>
+    <Value>False</Value>
+  </Parameters>
+  <Parameters>
+    <Key>MakeSquare</Key>
     <Value>False</Value>
   </Parameters>
   <Parameters>

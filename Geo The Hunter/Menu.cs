@@ -19,12 +19,17 @@ namespace Geo_The_Hunter
             gameRef = game;
         }
 
-        public virtual void LoadContent()
+        public void LoadContent()
         {
             creditFont = this.gameRef.Content.Load<SpriteFont>("creditFont");
 
         }
 
+        public void Update(GameTime gameTime)
+        {
+            //GameMap.EnableMap(GameMap.GetMap("map"));
+            Console.WriteLine("THIS HAS HAPPENED!!");
+        }
         public void addDev(string name, string position)
         {
             devs.Add(new Tuple<string, string>(name, position));
@@ -32,7 +37,6 @@ namespace Geo_The_Hunter
 
         public void showDevs(SpriteBatch batch)
         {
-
             batch.Begin();
 
             for (int i = 0; i < devs.Count; i++)

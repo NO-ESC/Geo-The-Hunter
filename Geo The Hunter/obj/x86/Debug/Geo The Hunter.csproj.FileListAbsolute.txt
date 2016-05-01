@@ -9,3 +9,16 @@ E:\College\Game Design\src\Geo The Hunter\Geo The Hunter\obj\x86\Debug\Geo The H
 E:\College\Game Design\src\Geo The Hunter\Geo The Hunter\bin\WindowsGL\Debug\Content\map.xnb
 E:\College\Game Design\src\Geo The Hunter\Geo The Hunter\bin\WindowsGL\Debug\Content\map2.xnb
 E:\College\Game Design\src\Geo The Hunter\Geo The Hunter\bin\WindowsGL\Debug\Content\creditFont.xnb
+J:\Geo The Hunter\Geo The Hunter\obj\x86\Debug\Geo The Hunter.exe
+J:\Geo The Hunter\Geo The Hunter\obj\x86\Debug\Geo The Hunter.pdb
+J:\Geo The Hunter\Geo The Hunter\bin\DesktopGL\x86\Debug\Content\creditFont.xnb
+J:\Geo The Hunter\Geo The Hunter\bin\DesktopGL\x86\Debug\Content\map.xnb
+J:\Geo The Hunter\Geo The Hunter\bin\DesktopGL\x86\Debug\Content\map2.xnb
+J:\Geo The Hunter\Geo The Hunter\bin\DesktopGL\x86\Debug\OpenTK.dll.config
+J:\Geo The Hunter\Geo The Hunter\bin\DesktopGL\x86\Debug\Geo The Hunter.exe
+J:\Geo The Hunter\Geo The Hunter\bin\DesktopGL\x86\Debug\Geo The Hunter.pdb
+J:\Geo The Hunter\Geo The Hunter\bin\DesktopGL\x86\Debug\MonoGame.Framework.dll
+J:\Geo The Hunter\Geo The Hunter\bin\DesktopGL\x86\Debug\NVorbis.dll
+J:\Geo The Hunter\Geo The Hunter\bin\DesktopGL\x86\Debug\OpenTK.dll
+J:\Geo The Hunter\Geo The Hunter\bin\DesktopGL\x86\Debug\Content\song.ogg
+J:\Geo The Hunter\Geo The Hunter\bin\DesktopGL\x86\Debug\Content\song.xnb

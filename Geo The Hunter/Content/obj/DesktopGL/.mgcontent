@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>J:/Geo The Hunter/Geo The Hunter/Content/../../Graphics/map.png</File>
+    <File>J:/Geo The Hunter/Geo The Hunter/Content/map.png</File>
+    <File>J:/Geo The Hunter/Geo The Hunter/Content/map2.png</File>
+    <File>J:/Geo The Hunter/Geo The Hunter/Content/creditFont.spritefont</File>
+    <File>J:/Geo The Hunter/Geo The Hunter/Content/song.mp3</File>
+  </SourceFiles>
+</SourceFileCollection>

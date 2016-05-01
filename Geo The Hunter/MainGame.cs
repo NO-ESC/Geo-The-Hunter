@@ -12,7 +12,6 @@ namespace Geo_The_Hunter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        GameMap mapManager;
         Menu menuManager;
 
         public MainGame()
@@ -33,8 +32,9 @@ namespace Geo_The_Hunter
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            mapManager = new GameMap(this);
+            GameMap.Instance(this);
             menuManager = new Menu(this);
+            GameAudio.Instance(this);
             menuManager.addDev("Brennan", "wanker");
             menuManager.addDev("Adam", "Another wanker");
             menuManager.addDev("Jack", "Team wanker");
@@ -51,8 +51,14 @@ namespace Geo_The_Hunter
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
 
-            mapManager.LoadContent();
+            GameMap.LoadContent();
             menuManager.LoadContent();
+            GameAudio.LoadContent();
+
+            
+
+            //GameAudio.PlaySong(index);
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -74,15 +80,25 @@ namespace Geo_The_Hunter
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
             if(Keyboard.GetState().IsKeyDown(Keys.A))
-                mapManager.enableMap(mapManager.getMap("map"));
+                GameMap.EnableMap(GameMap.GetMap("map"));
             else if(Keyboard.GetState().IsKeyDown(Keys.B))
-                mapManager.enableMap(mapManager.getMap("map2"));
+                GameMap.EnableMap(GameMap.GetMap("map2"));
             // TODO: Add your update logic here
 
+            int index = GameAudio.GetAudio("song");
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Q))
+                GameAudio.PlaySong(index);
+            else if (Keyboard.GetState().IsKeyDown(Keys.W))
+                GameAudio.PauseSong(index);
+            else if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                GameAudio.StopSong(index);
+                
             base.Update(gameTime);
         }
+
+
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -91,8 +107,8 @@ namespace Geo_The_Hunter
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
-            mapManager.Draw(spriteBatch);
+
+            GameMap.Draw(spriteBatch);
             menuManager.showDevs(spriteBatch);
             // TODO: Add your drawing code here
 
