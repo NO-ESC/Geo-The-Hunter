@@ -38,6 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Camera.cs" />
     <Compile Include="GameAudio.cs" />
     <Compile Include="GameMap.cs" />
     <Compile Include="MainGame.cs" />

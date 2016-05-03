@@ -13,6 +13,12 @@ namespace Geo_The_Hunter
     {
         private static Game gameRef;
 
+        // SoundEffect         - SoundEffect the actual SoundEffect
+        // string              - The name of the song
+        // int                 - Priority ID for being louder than other low priority sounds
+        // bool                - Set the song looping or not
+        // SoundEffectInstance - SoundEffectInstance used to control sounds  
+          
         private static List<Tuple<SoundEffect, string, int, bool, SoundEffectInstance>> lSongs = 
                          new List<Tuple<SoundEffect, string, int, bool, SoundEffectInstance>>();
 
@@ -31,7 +37,10 @@ namespace Geo_The_Hunter
             lSongs.Add(Tuple.Create<SoundEffect, string, int, bool, SoundEffectInstance>
                 (gameRef.Content.Load<SoundEffect>("song"), "song", 0, false, null));
 
+            // Last song added
             int index = lSongs.Count - 1;
+
+            // Create an instance so we can manage the song
             var instance = lSongs[index].Item1.CreateInstance();
             lSongs[index] = new Tuple<SoundEffect, string, int, bool, SoundEffectInstance>
                 (lSongs[index].Item1, lSongs[index].Item2, lSongs[index].Item3, lSongs[index].Item4, instance);
@@ -41,6 +50,13 @@ namespace Geo_The_Hunter
         {
             return lSongs.FindIndex(x => x.Item2.Equals(name));
         }
+
+        /*
+         * Background/Ambience music - Priority 0
+         * Sound Effects - Priority 1
+         * Voices? - Priority 2
+         * 
+         * */
 
         public static void Priority(int index, int p)
         {

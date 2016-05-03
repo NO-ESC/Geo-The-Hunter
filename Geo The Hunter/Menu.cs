@@ -37,15 +37,12 @@ namespace Geo_The_Hunter
 
         public void showDevs(SpriteBatch batch)
         {
-            batch.Begin();
-
             for (int i = 0; i < devs.Count; i++)
             {
                 batch.DrawString(creditFont, devs[i].Item1 + "  - " + devs[i].Item2, new Vector2(960, i*50+last_y), Color.White);
                 last_y += 0.1f;
             }
 
-            batch.End();
         }
 
     }

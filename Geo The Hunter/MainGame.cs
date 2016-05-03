@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -13,13 +14,14 @@ namespace Geo_The_Hunter
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Menu menuManager;
+        Camera mainCamera;
 
         public MainGame()
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.IsFullScreen = false;
-            graphics.PreferredBackBufferHeight = 1080;
-            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1280;
             Content.RootDirectory = "Content";
         }
 
@@ -32,12 +34,15 @@ namespace Geo_The_Hunter
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            mainCamera = new Camera(GraphicsDevice.Viewport);
             GameMap.Instance(this);
             menuManager = new Menu(this);
             GameAudio.Instance(this);
             menuManager.addDev("Brennan", "wanker");
             menuManager.addDev("Adam", "Another wanker");
             menuManager.addDev("Jack", "Team wanker");
+
+
             base.Initialize();
         }
 
@@ -78,12 +83,14 @@ namespace Geo_The_Hunter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            if(Keyboard.GetState().IsKeyDown(Keys.A))
-                GameMap.EnableMap(GameMap.GetMap("map"));
-            else if(Keyboard.GetState().IsKeyDown(Keys.B))
-                GameMap.EnableMap(GameMap.GetMap("map2"));
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
+                GameMap.CurrentMap = GameMap.GetMap("map");
+            else if (Keyboard.GetState().IsKeyDown(Keys.B))
+                GameMap.CurrentMap = GameMap.GetMap("map2");
             // TODO: Add your update logic here
 
             int index = GameAudio.GetAudio("song");
@@ -94,6 +101,38 @@ namespace Geo_The_Hunter
                 GameAudio.PauseSong(index);
             else if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 GameAudio.StopSong(index);
+
+            Vector2 mapSize = GameMap.GetMapSize(GameMap.CurrentMap);
+
+            // Plus 5 pixels from edges to keep camera jumping out of bounds
+            mapSize.X -= graphics.PreferredBackBufferWidth + 5;
+            mapSize.Y -= graphics.PreferredBackBufferHeight + 5;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
+                if (mainCamera.Position.X < mapSize.X && !graphics.IsFullScreen
+                    || mainCamera.Position.X < mapSize.X && graphics.IsFullScreen)
+                    mainCamera.Position += new Vector2(250, 0) * deltaTime;
+                    Console.WriteLine("Camera X: {0} mapSize.X: {1} mapSize.X - height: {2}", mainCamera.Position.X, mapSize.X, mapSize.X - graphics.PreferredBackBufferWidth);
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
+                if (mainCamera.Position.X > 0)
+                    mainCamera.Position -= new Vector2(250, 0) * deltaTime;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            {
+                if (mainCamera.Position.Y < mapSize.Y && !graphics.IsFullScreen
+                    || mainCamera.Position.Y < mapSize.Y && graphics.IsFullScreen)
+                    mainCamera.Position += new Vector2(0, 250) * deltaTime;
+                    Console.WriteLine("Camera Y: {0} mapSize.Y: {1} mapSize.Y - height: {2}", mainCamera.Position.Y, mapSize.Y, mapSize.Y - graphics.PreferredBackBufferHeight);
+            }
+            
+            else if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                if (mainCamera.Position.Y > 0)
+                    mainCamera.Position -= new Vector2(0, 250) * deltaTime;
+            }
                 
             base.Update(gameTime);
         }
@@ -108,9 +147,15 @@ namespace Geo_The_Hunter
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            var viewMatrix = mainCamera.GetViewMatrix();
+
+            spriteBatch.Begin(transformMatrix: viewMatrix);
+
             GameMap.Draw(spriteBatch);
             menuManager.showDevs(spriteBatch);
-            // TODO: Add your drawing code here
+
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

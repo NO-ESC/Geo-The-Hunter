@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>J:/Geo The Hunter/Geo The Hunter/Content/map.png</SourceFile>
-  <SourceTime>2016-04-30T22:21:57.3991226+01:00</SourceTime>
+  <SourceTime>2016-05-03T20:44:27.5217387+01:00</SourceTime>
   <DestFile>J:/Geo The Hunter/Geo The Hunter/Content/bin/DesktopGL/map.xnb</DestFile>
-  <DestTime>2016-04-30T22:24:07.3634986+01:00</DestTime>
+  <DestTime>2016-05-03T20:45:08.3351588+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2016-03-30T07:36:08+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
@@ -26,6 +26,10 @@
   </Parameters>
   <Parameters>
     <Key>ResizeToPowerOfTwo</Key>
+    <Value>False</Value>
+  </Parameters>
+  <Parameters>
+    <Key>MakeSquare</Key>
     <Value>False</Value>
   </Parameters>
   <Parameters>
