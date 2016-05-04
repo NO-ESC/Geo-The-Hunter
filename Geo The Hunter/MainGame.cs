@@ -15,13 +15,14 @@ namespace Geo_The_Hunter
         SpriteBatch spriteBatch;
         Menu menuManager;
         Camera mainCamera;
+        Player player;
 
         public MainGame()
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.IsFullScreen = false;
             graphics.PreferredBackBufferHeight = 720;
-            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferWidth = 1024;
             Content.RootDirectory = "Content";
         }
 
@@ -38,11 +39,10 @@ namespace Geo_The_Hunter
             GameMap.Instance(this);
             menuManager = new Menu(this);
             GameAudio.Instance(this);
+            player = new Player(this, mainCamera, graphics);
             menuManager.addDev("Brennan", "wanker");
             menuManager.addDev("Adam", "Another wanker");
             menuManager.addDev("Jack", "Team wanker");
-
-
             base.Initialize();
         }
 
@@ -59,6 +59,7 @@ namespace Geo_The_Hunter
             GameMap.LoadContent();
             menuManager.LoadContent();
             GameAudio.LoadContent();
+            player.LoadContent();
 
             
 
@@ -84,7 +85,7 @@ namespace Geo_The_Hunter
         protected override void Update(GameTime gameTime)
         {
             var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
+            player.Update(gameTime);
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             if (Keyboard.GetState().IsKeyDown(Keys.A))
@@ -102,37 +103,7 @@ namespace Geo_The_Hunter
             else if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 GameAudio.StopSong(index);
 
-            Vector2 mapSize = GameMap.GetMapSize(GameMap.CurrentMap);
-
-            // Plus 5 pixels from edges to keep camera jumping out of bounds
-            mapSize.X -= graphics.PreferredBackBufferWidth + 5;
-            mapSize.Y -= graphics.PreferredBackBufferHeight + 5;
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
-            {
-                if (mainCamera.Position.X < mapSize.X && !graphics.IsFullScreen
-                    || mainCamera.Position.X < mapSize.X && graphics.IsFullScreen)
-                    mainCamera.Position += new Vector2(250, 0) * deltaTime;
-                    Console.WriteLine("Camera X: {0} mapSize.X: {1} mapSize.X - height: {2}", mainCamera.Position.X, mapSize.X, mapSize.X - graphics.PreferredBackBufferWidth);
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                if (mainCamera.Position.X > 0)
-                    mainCamera.Position -= new Vector2(250, 0) * deltaTime;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                if (mainCamera.Position.Y < mapSize.Y && !graphics.IsFullScreen
-                    || mainCamera.Position.Y < mapSize.Y && graphics.IsFullScreen)
-                    mainCamera.Position += new Vector2(0, 250) * deltaTime;
-                    Console.WriteLine("Camera Y: {0} mapSize.Y: {1} mapSize.Y - height: {2}", mainCamera.Position.Y, mapSize.Y, mapSize.Y - graphics.PreferredBackBufferHeight);
-            }
             
-            else if (Keyboard.GetState().IsKeyDown(Keys.Up))
-            {
-                if (mainCamera.Position.Y > 0)
-                    mainCamera.Position -= new Vector2(0, 250) * deltaTime;
-            }
                 
             base.Update(gameTime);
         }
@@ -152,6 +123,7 @@ namespace Geo_The_Hunter
             spriteBatch.Begin(transformMatrix: viewMatrix);
 
             GameMap.Draw(spriteBatch);
+            player.Draw(spriteBatch);
             menuManager.showDevs(spriteBatch);
 
 
