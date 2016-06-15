@@ -1,0 +1,82 @@
+using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
+namespace Geo_The_Hunter
+{
+    class Enemies
+    {
+
+        private Player playerRef = null;
+        private Game gameRef = null;
+        private List<Tuple<Vector2, Texture2D>> Enemies = new List<Tuple<Vector2, Texture2D>>();
+        private List<Texture2D> enemyTextures = new List<Texture2D>();
+
+        public Enemies(Player player, Game game)
+        {
+            gameRef = game;
+            playerRef = player;
+        }
+
+
+        public void LoadContent()
+        {
+            Enemies.Add(Tuple.Create<Vector2, Texture2D>(new Vector2(0,0), gameRef.Content.Load<Texture2D>("enemy1")));
+        }
+
+        public void SpawnEnemy()
+        {
+
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            Vector2 playerPosition = playerRef.playerPosition;
+
+            for(int i = 0; i < Enemies.Count; i++)
+            {
+                float finalX = Enemies[i].Item1.X - playerPosition.X;
+                float finalY = Enemies[i].Item1.Y - playerPosition.Y;
+
+                if(finalX > 0)
+                {
+                    Vector2 newVec = new Vector2((float)((Enemies[i].Item1.X - 0.01) * gameTime.ElapsedGameTime.TotalSeconds), Enemies[i].Item1.Y);
+
+                    Enemies[i] = new Tuple<Vector2, Texture2D>(newVec, Enemies[i].Item2);
+                }
+                else if(finalX < 0)
+                {
+                    Vector2 newVec = new Vector2((float)((Enemies[i].Item1.X + 0.01) * gameTime.ElapsedGameTime.TotalSeconds), Enemies[i].Item1.Y);
+
+                    Enemies[i] = new Tuple<Vector2, Texture2D>(newVec, Enemies[i].Item2);
+                }
+
+                if(finalY > 0)
+                {
+                    Vector2 newVec = new Vector2(Enemies[i].Item1.X, (float)((Enemies[i].Item1.Y + 0.01) * gameTime.ElapsedGameTime.TotalSeconds));
+
+                    Enemies[i] = new Tuple<Vector2, Texture2D>(newVec, Enemies[i].Item2);
+
+                }
+                else if(finalY < 0)
+                {
+                    Vector2 newVec = new Vector2(Enemies[i].Item1.X, (float)((Enemies[i].Item1.Y - 0.01) * gameTime.ElapsedGameTime.TotalSeconds));
+
+                    Enemies[i] = new Tuple<Vector2, Texture2D>(newVec, Enemies[i].Item2);
+                }
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            for(int i = 0; i < Enemies.Count; i++)
+            {
+                if (Enemies[i].Item1.X != -100)
+                    spriteBatch.Draw(Enemies[i].Item2, Enemies[i].Item1, Color.White);
+            }
+        }
+    }
+}
