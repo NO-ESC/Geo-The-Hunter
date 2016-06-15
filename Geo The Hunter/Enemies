@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Geo_The_Hunter
 {
@@ -24,12 +23,16 @@ namespace Geo_The_Hunter
 
         public void LoadContent()
         {
-            Enemies.Add(Tuple.Create<Vector2, Texture2D>(new Vector2(0,0), gameRef.Content.Load<Texture2D>("enemy1")));
+            enemyTextures.Add(gameRef.Content.Load<Texture2D>("enemy"));
+            enemyTextures.Add(gameRef.Content.Load<Texture2D>("enemy2"));
         }
 
         public void SpawnEnemy()
         {
+            Random random = new Random();
+            int index = random.Next(1, 2);
 
+            Enemies.Add(Tuple.Create<Vector2, Texture2D>(new Vector2(0, 0), enemyTextures[index]));
         }
 
         public void Update(GameTime gameTime)
